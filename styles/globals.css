@@ -463,6 +463,56 @@ input[type="text"], textarea {
   gap: 0.5rem;
 }
 
+/* Fix for raw markdown display */
+.response-content.raw {
+  width: 100%;
+  overflow-x: auto; /* Allow horizontal scrolling within the container */
+}
+
+.response-content.raw pre {
+  white-space: pre-wrap; /* Allow text to wrap */
+  word-wrap: break-word; /* Break long words if needed */
+  max-width: 100%; /* Ensure pre doesn't exceed container width */
+  font-family: monospace;
+  font-size: 0.9rem;
+  background-color: var(--code-background);
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+/* Fix for tab switching - prevent layout shift */
+.response-content {
+  min-height: 200px; /* Set minimum height to prevent layout shift */
+  width: 100%;
+}
+
+/* Ensure consistent tab styling */
+.response-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.tab-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 4px 4px 0 0;
+  border: 1px solid var(--border-color);
+  border-bottom: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.tab-btn.active {
+  background-color: var(--card-background);
+  font-weight: bold;
+  border-bottom: 1px solid var(--card-background);
+  margin-bottom: -1px;
+}
+
 .tab-btn {
   background-color: transparent;
   color: var(--text-color);
