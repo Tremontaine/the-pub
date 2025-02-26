@@ -44,7 +44,6 @@ export default function Sidebar({ isOpen, closeSidebar }) {
       </div>
       
       <nav>
-        <h3 className="nav-title">Collections</h3>
         <ul className="nav-links">
           <li>
             <a 
