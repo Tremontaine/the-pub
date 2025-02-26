@@ -50,16 +50,6 @@ export default function Home() {
               target="_blank" rel="noopener noreferrer" className="github-link">github.com/Tremontaine/the-pub</a></p>
             </div>
           </div>
-
-          <p>
-            <strong>AI Features:</strong>
-          </p>
-          <ul className="feature-list">
-            <li>Instant balance analysis for any homebrew entry</li>
-            <li>Request specific modifications (make it stronger, add new features, etc.)</li>
-            <li>Export both original content and AI-modified versions as PDFs</li>
-            <li>Get detailed explanations about balance implications</li>
-          </ul>
         </div>
       </div>
     </Layout>
