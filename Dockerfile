@@ -9,8 +9,9 @@ WORKDIR /app
 
 # Install dependencies
 FROM base AS deps
-COPY package.json package-lock.json* ./
-RUN npm ci
+COPY package.json ./
+# Use npm install instead of npm ci to work without package-lock.json
+RUN npm install
 
 # Build the app
 FROM deps AS builder
@@ -28,8 +29,11 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 RUN mkdir -p /app/content && chown -R nextjs:nodejs /app/content
 
+# Copy package.json and install production dependencies (including sharp)
+COPY package.json ./
+RUN npm install --only=production
+
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/package.json ./package.json
 
 # Automatically leverage output traces to reduce image size
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
