@@ -91,7 +91,7 @@ The Pub can be easily deployed using Docker.
    docker compose up -d
    ```
 
-4. Access The Pub at http://localhost:3000
+4. Access The Pub at http://localhost:8765
 
 ### Using Docker Directly
 
@@ -102,7 +102,7 @@ The Pub can be easily deployed using Docker.
 
 2. Run the container:
    ```bash
-   docker run -p 3000:3000 -e MISTRAL_API_KEY=your_api_key -v $(pwd)/content:/app/content -d the-pub
+   docker run -p 8765:3000 -e MISTRAL_API_KEY=your_api_key -v $(pwd)/content:/app/content -d the-pub
    ```
 
 ### Docker Environment Variables
