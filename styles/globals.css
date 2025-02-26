@@ -1024,4 +1024,59 @@ input[type="text"], textarea {
   .sidebar {
     width: 85%;
   }
+
+/* Improve AI Response Table Rendering */
+.response-content.rendered table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2em 0;
+  border: 1px solid var(--border-color);
+}
+
+.response-content.rendered th,
+.response-content.rendered td {
+  padding: 0.5em 0.75em;
+  border: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.response-content.rendered th {
+  background-color: var(--hover-color);
+  font-weight: bold;
+}
+
+/* Fix spacing issues in AI response */
+.response-content.rendered p {
+  margin: 0.5em 0;
+  line-height: 1.5;
+}
+
+.response-content.rendered h2,
+.response-content.rendered h3,
+.response-content.rendered h4 {
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+}
+
+/* Reduce excessive spacing */
+.response-content.rendered > * + * {
+  margin-top: 0.8em;
+}
+
+/* Add proper rendering for code blocks in AI response */
+.response-content.rendered pre {
+  background-color: var(--code-background);
+  border-radius: 4px;
+  padding: 1em;
+  overflow-x: auto;
+  margin: 1em 0;
+}
+
+.response-content.rendered code {
+  font-family: monospace;
+  font-size: 0.9em;
+  padding: 0.2em 0.4em;
+  background-color: var(--code-background);
+  border-radius: 3px;
+}
 }
