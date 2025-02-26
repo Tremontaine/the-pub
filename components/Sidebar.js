@@ -1,8 +1,7 @@
-// components/Sidebar.js
 import { useRouter } from 'next/router';
 import GlobalSearch from './GlobalSearch';
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, closeSidebar }) {
   const router = useRouter();
   
   const isActive = (path) => {
@@ -11,25 +10,29 @@ export default function Sidebar() {
   
   // Direct navigation handler to bypass any event issues
   const navigateTo = (path) => {
+    // Close sidebar on navigation (mobile)
+    closeSidebar();
     // Use window.location for hard navigation
     window.location.href = path;
   };
   
   return (
-    <aside className="sidebar">
-      <div className="sidebar-logo">
-        <a href="/" onClick={(e) => {
-          e.preventDefault();
-          navigateTo('/');
-        }}>
-          <div className="logo-container">
-            <img 
-              src="/logo.png" 
-              alt="The Pub Logo" 
-              className="logo-image"
-            />
-          </div>
-        </a>
+    <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
+      <div className="sidebar-header">
+        <div className="sidebar-logo">
+          <a href="/" onClick={(e) => {
+            e.preventDefault();
+            navigateTo('/');
+          }}>
+            <div className="logo-container">
+              <img 
+                src="/logo.png" 
+                alt="The Pub Logo" 
+                className="logo-image"
+              />
+            </div>
+          </a>
+        </div>
       </div>
       
       <div className="search-container">
@@ -37,6 +40,7 @@ export default function Sidebar() {
       </div>
       
       <nav>
+        <h3 className="nav-title">Collections</h3>
         <ul className="nav-links">
           <li>
             <a 
@@ -47,8 +51,7 @@ export default function Sidebar() {
                 navigateTo('/bestiary');
               }}
             >
-              <span className="nav-icon">🐲</span>
-              <span className="nav-text">Bestiary</span>
+              <span className="nav-icon">🐉</span> Bestiary
             </a>
           </li>
           <li>
@@ -60,8 +63,7 @@ export default function Sidebar() {
                 navigateTo('/spells');
               }}
             >
-              <span className="nav-icon">✨</span>
-              <span className="nav-text">Spells</span>
+              <span className="nav-icon">✨</span> Spells
             </a>
           </li>
           <li>
@@ -73,8 +75,7 @@ export default function Sidebar() {
                 navigateTo('/items');
               }}
             >
-              <span className="nav-icon">⚔️</span>
-              <span className="nav-text">Items</span>
+              <span className="nav-icon">🏆</span> Items
             </a>
           </li>
           <li>
@@ -86,8 +87,7 @@ export default function Sidebar() {
                 navigateTo('/subclasses');
               }}
             >
-              <span className="nav-icon">👑</span>
-              <span className="nav-text">Subclasses</span>
+              <span className="nav-icon">⚔️</span> Subclasses
             </a>
           </li>
         </ul>
