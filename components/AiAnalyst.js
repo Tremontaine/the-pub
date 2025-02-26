@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { remark } from 'remark';
 import html from 'remark-html';
+import remarkGfm from 'remark-gfm';
 
 export default function AiAnalyst({ entry, type }) {
   const [query, setQuery] = useState('');
@@ -15,7 +16,8 @@ export default function AiAnalyst({ entry, type }) {
   
   const convertMarkdownToHtml = async (markdown) => {
     const result = await remark()
-      .use(html)
+      .use(remarkGfm)
+      .use(html, { sanitize: false })
       .process(markdown);
     return result.toString();
   };
