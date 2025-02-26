@@ -1,5 +1,6 @@
 services:
   the-pub:
+    container_name: 5e-Pub
     build:
       context: .
       dockerfile: Dockerfile
