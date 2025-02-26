@@ -488,18 +488,19 @@ input[type="text"], textarea {
 
 .response-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   margin: 1rem 0;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .response-tabs {
   display: flex;
   gap: 0.5rem;
-  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 0;
   padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
-  width: 100%;
+  flex-grow: 1;
 }
 
 .tab-btn {
@@ -1088,9 +1089,9 @@ input[type="text"], textarea {
     width: 100%;
   }
   
-  .export-pdf-btn {
-    width: 100%;
-  }
+.export-pdf-btn {
+  margin-left: auto;
+}
 }
 
 @media (max-width: 480px) {
@@ -1119,4 +1120,18 @@ input[type="text"], textarea {
   .sidebar {
     width: 85%;
   }
+
+@media (max-width: 768px) {
+  .response-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .export-pdf-btn {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+  
 }
