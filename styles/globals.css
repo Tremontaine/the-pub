@@ -318,7 +318,8 @@ input[type="text"], textarea {
 }
 
 .entry-detail {
-  max-width: 800px;
+  width: 100%; /* Force entry detail to expand */
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -491,7 +492,8 @@ input[type="text"], textarea {
 }
 
 .home-content {
-  max-width: 900px;
+  width: 100%; /* Force home content to expand */
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -499,6 +501,11 @@ input[type="text"], textarea {
   margin-top: 3rem;
   padding-top: 2rem;
   border-top: 1px solid var(--border-color);
+}
+
+.width-wide .entry-detail,
+.width-wide .home-content {
+  max-width: 100%;
 }
 
 /* Markdown Content Styling */
@@ -840,6 +847,11 @@ input[type="text"], textarea {
     transition: background 0.3s, visibility 0.3s;
     z-index: 990;
     pointer-events: none;
+  }
+
+  .main-content-inner {
+    width: 95% !important;
+    max-width: 95% !important;
   }
   
   .container.sidebar-open::after {
