@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import GlobalSearch from './GlobalSearch';
+import Image from 'next/image';
 
 export default function Sidebar({ isOpen, closeSidebar }) {
   const router = useRouter();
@@ -25,12 +26,15 @@ export default function Sidebar({ isOpen, closeSidebar }) {
             navigateTo('/');
           }}>
             <div className="logo-container">
-              <img 
-                src="/logo.png" 
-                alt="The Pub Logo" 
-                className="logo-image"
-              />
-            </div>
+            <Image 
+              src="/logo.png" 
+              alt="The Pub Logo" 
+              width={150}
+              height={150}
+              className="logo-image"
+              priority
+            />
+          </div>
           </a>
         </div>
       </div>
