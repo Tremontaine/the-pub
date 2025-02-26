@@ -286,17 +286,15 @@ input[type="text"], textarea {
   opacity: 0.8;
 }
 
-/* Centered nav links in sidebar */
+/* Left-aligned nav links in sidebar */
 .nav-links {
   list-style: none;
   margin-top: 2rem; /* Increased top margin to account for removed heading */
-  text-align: center; /* Center the list items */
+  padding-left: 0.5rem; /* Add a small padding for better spacing */
 }
 
 .nav-links li {
   margin-bottom: 0.5rem;
-  display: flex;
-  justify-content: center; /* Center the link container */
 }
 
 .nav-links a {
@@ -307,9 +305,7 @@ input[type="text"], textarea {
   transition: all 0.2s ease;
   color: var(--text-color);
   font-weight: 500;
-  justify-content: center; /* Center the content within the link */
-  width: 100%;
-  max-width: 180px; /* Limit the width of links */
+  text-align: left;
 }
 
 .nav-links a:hover {
