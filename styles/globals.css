@@ -1079,4 +1079,38 @@ input[type="text"], textarea {
   background-color: var(--code-background);
   border-radius: 3px;
 }
+
+/* Add to styles/globals.css */
+
+/* Ensure tables render properly in all contexts */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  position: relative;
+  z-index: 0;
+  overflow-x: auto;
+  display: block; /* Makes tables scrollable on small screens */
+}
+
+@media (min-width: 768px) {
+  table {
+    display: table; /* Normal table on larger screens */
+  }
+}
+
+th, td {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  text-align: left;
+}
+
+/* Zebra striping for better table readability */
+tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.025);
+}
+
+.dark-mode tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.025);
+}
 }
