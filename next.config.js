@@ -1,10 +1,11 @@
+// next.config.js
 module.exports = {
   reactStrictMode: true,
-  env: {
-    MISTRAL_API_KEY: process.env.MISTRAL_API_KEY,
-  },
   images: {
-    unoptimized: true
+    // Enable image optimization
+    unoptimized: false,
+    // Define domains for external images if needed
+    domains: [],
   },
-  output: 'standalone',  // Add this line for Docker deployment
+  output: 'standalone',
 }
