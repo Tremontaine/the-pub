@@ -93,74 +93,99 @@ export default function AiAnalyst({ entry, type }) {
     }
   };
     
-  const handleExportPDF = () => {
-    if (typeof window === 'undefined') return;
+const handleExportPDF = () => {
+  if (typeof window === 'undefined') return;
+  
+  import('html2pdf.js').then(module => {
+    const html2pdf = module.default;
     
-    import('html2pdf.js').then(module => {
-      const html2pdf = module.default;
-      
-      const element = document.createElement('div');
-      element.className = 'pdf-container';
-      element.innerHTML = `
-        <h1>AI Analysis for ${entry.name}</h1>
-        <div class="ai-content-pdf">
-          ${responseHtml}
-        </div>
-      `;
-      
-      // Add temporary styling
-      const tempStyle = document.createElement('style');
-      tempStyle.innerHTML = `
-        .pdf-container {
-          font-family: Arial, sans-serif;
-          line-height: 1.6;
-          color: #333;
-          padding: 20px;
-        }
-        .pdf-container h1, .pdf-container h2, .pdf-container h3 {
-          margin-top: 20px;
-          margin-bottom: 10px;
-          color: #8b0000;
-        }
-        .ai-content-pdf {
-          padding: 15px;
-          margin: 15px 0;
-        }
-        .pdf-container p {
-          margin: 0 0 10px 0;
-        }
-        .pdf-container ul, .pdf-container ol {
-          margin-bottom: 15px;
-          padding-left: 20px;
-        }
-      `;
-      document.head.appendChild(tempStyle);
-      
-      const opt = {
-        margin: [25, 25, 25, 25], // top, right, bottom, left margins in mm
-        filename: `ai-analysis-${entry.name.toLowerCase().replace(/\s+/g, '-')}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { 
-          scale: 2,
-          letterRendering: true,
-          useCORS: true
-        },
-        jsPDF: { 
-          unit: 'mm', 
-          format: 'a4', 
-          orientation: 'portrait',
-          putOnlyUsedFonts: true,
-          compress: true
-        },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-      };
-      
-      html2pdf().from(element).set(opt).save().then(() => {
-        // Clean up temporary style
-        document.head.removeChild(tempStyle);
-      });
+    const element = document.createElement('div');
+    element.className = 'pdf-container';
+    element.innerHTML = `
+      <h1>AI Analysis for ${entry.name}</h1>
+      <div class="ai-content-pdf">
+        ${responseHtml}
+      </div>
+    `;
+    
+    // Add temporary styling
+    const tempStyle = document.createElement('style');
+    tempStyle.innerHTML = `
+      .pdf-container {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        padding: 20px;
+      }
+      .pdf-container h1, .pdf-container h2, .pdf-container h3 {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: #8b0000;
+        page-break-after: avoid;
+      }
+      .ai-content-pdf {
+        padding: 15px;
+        margin: 15px 0;
+      }
+      .pdf-container p {
+        margin: 0 0 10px 0;
+        page-break-inside: avoid;
+      }
+      .pdf-container ul, .pdf-container ol {
+        margin-bottom: 15px;
+        padding-left: 20px;
+      }
+      .pdf-container table {
+        width: 100%;
+        border-collapse: collapse;
+        page-break-inside: avoid;
+        margin: 15px 0;
+      }
+      .pdf-container th, .pdf-container td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      .pdf-container tr {
+        page-break-inside: avoid;
+      }
+      * {
+        orphans: 3;
+        widows: 3;
+      }
+    `;
+    document.head.appendChild(tempStyle);
+    
+    const opt = {
+      margin: [25, 25, 25, 25], // top, right, bottom, left margins in mm
+      filename: `ai-analysis-${entry.name.toLowerCase().replace(/\s+/g, '-')}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { 
+        scale: 2,
+        letterRendering: true,
+        useCORS: true
+      },
+      jsPDF: { 
+        unit: 'mm', 
+        format: 'a4', 
+        orientation: 'portrait',
+        putOnlyUsedFonts: true,
+        compress: true
+      },
+      pagebreak: { 
+        mode: ['avoid-all', 'css', 'legacy'],
+        before: '.page-break-before',
+        after: '.page-break-after',
+        avoid: ['tr', 'td', 'th', 'img', 'table', 'h1', 'h2', 'h3']
+      }
+    };
+    
+    html2pdf().from(element).set(opt).save().then(() => {
+      // Clean up temporary style
+      document.head.removeChild(tempStyle);
     });
-  };
+  });
+};
   
   return (
     <div className="ai-analyst">
