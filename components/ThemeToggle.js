@@ -1,16 +1,16 @@
+// components/ThemeToggle.js
 import { useEffect, useState } from 'react';
 
 export default function ThemeToggle() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true); // Default is now true
   
   useEffect(() => {
-    // Initialize theme from localStorage if available
+    // Check if user has explicitly chosen light mode
     const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      setIsDarkMode(true);
-      document.documentElement.classList.add('dark-mode');
+    if (savedTheme === 'light') {
+      setIsDarkMode(false);
+      document.documentElement.classList.remove('dark-mode');
     }
   }, []);
   
