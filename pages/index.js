@@ -6,15 +6,8 @@ export default function Home() {
     <Layout title="The Pub - D&D 5e Homebrew">
       <div className="home-content">
         <h1>Welcome to The Pub</h1>
-        <p className="hero-text">A repository for D&D 5e homebrew content, powered by AI analysis and Markdown simplicity.</p>
-        
-        <div className="feature-banner">
-          <div className="ai-feature">
-            <h3>AI-Powered Analysis</h3>
-            <p>Analyze, balance, and enhance with our integrated AI assistant.</p>
-          </div>
-        </div>
-        
+        <p className="hero-text">A repository for D&D 5e homebrew content, powered by AI analysis and Markdown simplicity. Analyze, balance, and enhance with our integrated AI assistant.</p>
+    
         <div className="category-grid">
           <Link href="/bestiary" className="category-card">
             <h2>Bestiary</h2>
