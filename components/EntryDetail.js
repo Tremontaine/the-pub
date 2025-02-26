@@ -16,13 +16,13 @@ export default function EntryDetail({ entry, content, type, rawMarkdown }) {
     }
   }, []);
   
-  const handleExportPDF = () => {
-    if (!html2pdf) return;
-    
-    const element = document.createElement('div');
-    element.innerHTML = `
-      <h1>${entry.name}</h1>
-      <div class="stat-block-pdf">
+const handleExportPDF = () => {
+  if (!html2pdf) return;
+  
+  const element = document.createElement('div');
+  element.innerHTML = `
+    <h1>${entry.name}</h1>
+    <div class="stat-block-pdf">
         ${type === 'bestiary' ? `
           <p><strong>Type:</strong> ${entry.type}</p>
           <p><strong>CR:</strong> ${entry.challenge_rating}</p>
@@ -53,17 +53,49 @@ export default function EntryDetail({ entry, content, type, rawMarkdown }) {
       </div>
       ${content}
     `;
-    
-    const opt = {
-      margin: 10,
-      filename: `${entry.name.toLowerCase().replace(/\s+/g, '-')}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-    
-    html2pdf().from(element).set(opt).save();
+
+   // Add page break CSS to the element
+  element.style.cssText = `
+    * {
+      orphans: 3;
+      widows: 3;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      break-after: avoid-page;
+    }
+    table, tr, img {
+      page-break-inside: avoid;
+    }
+    p {
+      page-break-inside: avoid;
+    }
+  `;
+      
+  const opt = {
+    margin: 10,
+    filename: `${entry.name.toLowerCase().replace(/\s+/g, '-')}.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { 
+      scale: 2,
+      letterRendering: true,
+      useCORS: true
+    },
+    jsPDF: { 
+      unit: 'mm', 
+      format: 'a4', 
+      orientation: 'portrait',
+      compress: true 
+    },
+    pagebreak: { 
+      mode: ['avoid-all', 'css', 'legacy'],
+      before: '.page-break-before',
+      after: '.page-break-after',
+      avoid: ['tr', 'td', 'th', 'img', 'table', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']
+    }
   };
+  
+  html2pdf().from(element).set(opt).save();
+};
   
   return (
     <div className="entry-detail">
