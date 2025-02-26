@@ -214,7 +214,7 @@ The Oath of Frost binds paladins to the ideals of endurance, isolation, and pres
 
 Adjust content width using the controls in the top right corner:
 - Narrow (25%)
-- Centered (50%)
+- Centered (40%)
 - Wide (90%)
 
 ## AI Assistant
