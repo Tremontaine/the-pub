@@ -88,7 +88,7 @@ The Pub can be easily deployed using Docker.
 
 3. Build and start the container:
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
 
 4. Access The Pub at http://localhost:3000
