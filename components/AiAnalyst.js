@@ -318,4 +318,26 @@ export default function AiAnalyst({ entry, type }) {
               className="export-pdf-btn" 
               onClick={handleExportPDF}
             >
-              Export AI
+              Export AI PDF
+            </button>
+          </div>
+          <div className="response-content rendered" dangerouslySetInnerHTML={{ __html: responseHtml }}></div>
+          <div className="response-content raw" style={{ display: 'none' }}>
+            <pre>{response}</pre>
+          </div>
+          <button 
+            onClick={() => {
+              setQuery('');
+              setResponse('');
+              setResponseHtml('');
+              setHasAsked(false);
+            }}
+            className="ai-reset-btn"
+          >
+            Ask Another Question
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
