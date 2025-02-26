@@ -62,12 +62,27 @@ p, ul, ol {
   line-height: 1.6;
 }
 
+/* Table Styles */
 table {
   width: 100%;
   border-collapse: collapse;
   margin: 1rem 0;
   position: relative;
   z-index: 0;
+  border: 1px solid var(--border-color);
+}
+
+@media (max-width: 768px) {
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+@media (min-width: 769px) {
+  table {
+    display: table;
+  }
 }
 
 th {
@@ -76,11 +91,22 @@ th {
   background-color: var(--hover-color);
   cursor: pointer;
   border-bottom: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
 }
 
 td {
   padding: 0.75rem;
   border-bottom: 1px solid var(--border-color);
+  border: 1px solid var(--border-color);
+}
+
+/* Zebra striping for better table readability */
+tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.025);
+}
+
+.dark-mode tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.025);
 }
 
 tr:hover {
@@ -101,6 +127,7 @@ tr:hover {
   text-decoration: underline;
 }
 
+/* Button Styles */
 button {
   background-color: var(--primary-color);
   color: white;
@@ -120,6 +147,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
+/* Form Element Styles */
 input[type="text"], textarea {
   width: 100%;
   padding: 0.5rem;
@@ -130,6 +158,7 @@ input[type="text"], textarea {
   color: var(--text-color);
 }
 
+/* Layout Styles */
 .container {
   display: flex;
   min-height: 100vh;
@@ -152,6 +181,7 @@ input[type="text"], textarea {
   z-index: 0;
 }
 
+/* Content Controls */
 .content-controls {
   display: flex;
   justify-content: space-between;
@@ -190,7 +220,7 @@ input[type="text"], textarea {
   margin-right: 0.5rem;
 }
 
-/* Sidebar styles */
+/* Sidebar Styles */
 .sidebar-toggle {
   display: none;
   position: fixed;
@@ -294,6 +324,7 @@ input[type="text"], textarea {
   font-size: 1.2rem;
 }
 
+/* Search Styles */
 .search-container {
   margin-bottom: 1.5rem;
 }
@@ -317,8 +348,9 @@ input[type="text"], textarea {
   background-color: var(--hover-color);
 }
 
+/* Entry Detail Styles */
 .entry-detail {
-  width: 100%; /* Force entry detail to expand */
+  width: 100%;
   max-width: 100%;
   margin: 0 auto;
 }
@@ -374,6 +406,7 @@ input[type="text"], textarea {
   border-radius: 4px;
 }
 
+/* Theme Toggle */
 .theme-toggle {
   background-color: transparent;
   color: var(--text-color);
@@ -386,6 +419,7 @@ input[type="text"], textarea {
   background-color: var(--hover-color);
 }
 
+/* AI Analyst Styles */
 .ai-analyst {
   margin-top: 3rem;
   padding-top: 1.5rem;
@@ -419,7 +453,7 @@ input[type="text"], textarea {
   margin-top: 1rem;
 }
 
-/* Updated character counter CSS */
+/* Character Counter Styles */
 .textarea-container {
   position: relative;
 }
@@ -427,28 +461,29 @@ input[type="text"], textarea {
 .char-counter {
   position: absolute;
   bottom: 8px;
-  right: 25px; /* Moved from 8px to 25px to avoid the resize handle */
+  right: 25px;
   font-size: 0.8rem;
   background-color: rgba(255, 255, 255, 0.8);
   padding: 2px 6px;
   border-radius: 4px;
-  pointer-events: none; /* So it doesn't interfere with textarea */
-  z-index: 5; /* Ensure it appears above the textarea */
+  pointer-events: none;
+  z-index: 5;
 }
 
 .dark-mode .char-counter {
   background-color: rgba(30, 30, 30, 0.8);
 }
 
-/* Adjust textarea padding to make room for the counter */
 .textarea-container textarea {
   padding-bottom: 30px;
 }
 
+/* Response Content Styles */
 .response-content {
   margin: 1rem 0;
-  white-space: pre-wrap;
-  overflow-x: auto;
+  width: 100%;
+  min-height: 200px;
+  overflow-x: visible;
 }
 
 .response-actions {
@@ -461,48 +496,20 @@ input[type="text"], textarea {
 .response-tabs {
   display: flex;
   gap: 0.5rem;
-}
-
-/* Fix for raw markdown display */
-.response-content.raw {
-  width: 100%;
-  overflow-x: auto; /* Allow horizontal scrolling within the container */
-}
-
-.response-content.raw pre {
-  white-space: pre-wrap; /* Allow text to wrap */
-  word-wrap: break-word; /* Break long words if needed */
-  max-width: 100%; /* Ensure pre doesn't exceed container width */
-  font-family: monospace;
-  font-size: 0.9rem;
-  background-color: var(--code-background);
-  padding: 1rem;
-  border-radius: 4px;
-  border: 1px solid var(--border-color);
-  color: var(--text-color);
-}
-
-/* Fix for tab switching - prevent layout shift */
-.response-content {
-  min-height: 200px; /* Set minimum height to prevent layout shift */
-  width: 100%;
-}
-
-/* Ensure consistent tab styling */
-.response-tabs {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
 }
 
 .tab-btn {
-  padding: 0.5rem 1rem;
-  border-radius: 4px 4px 0 0;
-  border: 1px solid var(--border-color);
-  border-bottom: none;
   background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  border-radius: 4px 4px 0 0;
+  border-bottom: none;
   cursor: pointer;
 }
 
@@ -513,19 +520,36 @@ input[type="text"], textarea {
   margin-bottom: -1px;
 }
 
-.tab-btn {
-  background-color: transparent;
-  color: var(--text-color);
+/* Raw Markdown Display Styles */
+.response-content.raw {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  position: relative;
+  background-color: var(--code-background);
   border: 1px solid var(--border-color);
-  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  margin: 1rem 0;
+  padding: 0;
+}
+
+.response-content.raw pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  width: 100%;
+  max-width: 100%;
+  font-family: monospace;
   font-size: 0.9rem;
+  padding: 1rem;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  color: var(--text-color);
+  line-height: 1.5;
+  overflow-x: visible;
 }
 
-.tab-btn.active {
-  background-color: var(--hover-color);
-  font-weight: bold;
-}
-
+/* Source Code Display */
 .markdown-source {
   background-color: var(--card-background);
   border: 1px solid var(--border-color);
@@ -546,6 +570,7 @@ input[type="text"], textarea {
   margin-top: 1rem;
 }
 
+/* Home Page Styles */
 .category-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -568,7 +593,7 @@ input[type="text"], textarea {
 }
 
 .home-content {
-  width: 100%; /* Force home content to expand */
+  width: 100%;
   max-width: 100%;
   margin: 0 auto;
 }
@@ -782,7 +807,7 @@ input[type="text"], textarea {
   background-color: rgba(139, 0, 0, 0.1);
 }
 
-/* GitHub link styling */
+/* GitHub Link Styling */
 .github-link {
   color: var(--primary-color);
   text-decoration: underline;
@@ -885,7 +910,27 @@ input[type="text"], textarea {
   color: var(--primary-color);
 }
 
-/* Add page break classes for better PDF generation */
+/* Improve table rendering in AI responses */
+.response-content.rendered table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2em 0;
+  border: 1px solid var(--border-color);
+}
+
+.response-content.rendered th,
+.response-content.rendered td {
+  padding: 0.5em 0.75em;
+  border: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.response-content.rendered th {
+  background-color: var(--hover-color);
+  font-weight: bold;
+}
+
+/* PDF Generation Helpers */
 .page-break-after {
   page-break-after: always;
 }
@@ -1074,93 +1119,4 @@ input[type="text"], textarea {
   .sidebar {
     width: 85%;
   }
-
-/* Improve AI Response Table Rendering */
-.response-content.rendered table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1.2em 0;
-  border: 1px solid var(--border-color);
-}
-
-.response-content.rendered th,
-.response-content.rendered td {
-  padding: 0.5em 0.75em;
-  border: 1px solid var(--border-color);
-  text-align: left;
-}
-
-.response-content.rendered th {
-  background-color: var(--hover-color);
-  font-weight: bold;
-}
-
-/* Fix spacing issues in AI response */
-.response-content.rendered p {
-  margin: 0.5em 0;
-  line-height: 1.5;
-}
-
-.response-content.rendered h2,
-.response-content.rendered h3,
-.response-content.rendered h4 {
-  margin-top: 1.2em;
-  margin-bottom: 0.5em;
-}
-
-/* Reduce excessive spacing */
-.response-content.rendered > * + * {
-  margin-top: 0.8em;
-}
-
-/* Add proper rendering for code blocks in AI response */
-.response-content.rendered pre {
-  background-color: var(--code-background);
-  border-radius: 4px;
-  padding: 1em;
-  overflow-x: auto;
-  margin: 1em 0;
-}
-
-.response-content.rendered code {
-  font-family: monospace;
-  font-size: 0.9em;
-  padding: 0.2em 0.4em;
-  background-color: var(--code-background);
-  border-radius: 3px;
-}
-
-/* Add to styles/globals.css */
-
-/* Ensure tables render properly in all contexts */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1rem 0;
-  position: relative;
-  z-index: 0;
-  overflow-x: auto;
-  display: block; /* Makes tables scrollable on small screens */
-}
-
-@media (min-width: 768px) {
-  table {
-    display: table; /* Normal table on larger screens */
-  }
-}
-
-th, td {
-  padding: 0.75rem;
-  border: 1px solid var(--border-color);
-  text-align: left;
-}
-
-/* Zebra striping for better table readability */
-tr:nth-child(even) {
-  background-color: rgba(0, 0, 0, 0.025);
-}
-
-.dark-mode tr:nth-child(even) {
-  background-color: rgba(255, 255, 255, 0.025);
-}
 }
