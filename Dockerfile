@@ -1,12 +1,16 @@
 # Use Node.js LTS as the base image
 FROM node:18-alpine AS base
 
+# Install sharp dependencies
+RUN apk add --no-cache sharp
+
 # Create app directory
 WORKDIR /app
 
 # Install dependencies
 FROM base AS deps
 COPY package.json package-lock.json* ./
+# Add sharp to dependencies
 RUN npm ci
 
 # Build the app
@@ -19,6 +23,10 @@ FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
+
+# Install production dependencies including sharp
+COPY package.json package-lock.json* ./
+RUN npm ci --production
 
 # Create a non-root user
 RUN addgroup --system --gid 1001 nodejs
