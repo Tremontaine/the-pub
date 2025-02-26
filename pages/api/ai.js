@@ -3,21 +3,27 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { query, entry, type, systemPrompt } = req.body;
-
+  const { query, entry, type } = req.body;
+  
   if (!query || !entry || !type) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
   try {
+    // Get API key from server environment, never expose to client
     const apiKey = process.env.MISTRAL_API_KEY;
     if (!apiKey) {
-      return res.status(500).json({ 
-        error: 'Mistral API key not configured',
-        details: 'Please add your MISTRAL_API_KEY to the .env.local file'
-      });
+      return res.status(500).json({ error: 'API key not configured' });
     }
 
+    // Add rate limiting
+    // This is a simple example - consider using a proper rate limiting library
+    const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    const rateLimitKey = `ratelimit:${clientIp}`;
+    
+    // Here you would check rate limits from Redis or another store
+    // For demo purposes, we'll just continue
+    
     const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
       method: 'POST',
       headers: {
