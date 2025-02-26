@@ -10,6 +10,7 @@ export default function AiAnalyst({ entry, type }) {
   const [responseHtml, setResponseHtml] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [hasAsked, setHasAsked] = useState(false);
+  const [activeTab, setActiveTab] = useState('rendered');
   
   // Character limit constant
   const MAX_CHARS = 1000;
@@ -292,24 +293,14 @@ export default function AiAnalyst({ entry, type }) {
           <div className="response-actions">
             <div className="response-tabs">
               <button 
-                className="tab-btn active" 
-                onClick={(e) => {
-                  document.querySelector('.rendered').style.display = 'block';
-                  document.querySelector('.raw').style.display = 'none';
-                  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-                  e.target.classList.add('active');
-                }}
+                className={`tab-btn ${activeTab === 'rendered' ? 'active' : ''}`} 
+                onClick={() => setActiveTab('rendered')}
               >
                 Rendered
               </button>
               <button 
-                className="tab-btn" 
-                onClick={(e) => {
-                  document.querySelector('.rendered').style.display = 'none';
-                  document.querySelector('.raw').style.display = 'block';
-                  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-                  e.target.classList.add('active');
-                }}
+                className={`tab-btn ${activeTab === 'raw' ? 'active' : ''}`} 
+                onClick={() => setActiveTab('raw')}
               >
                 Raw Markdown
               </button>
@@ -321,10 +312,15 @@ export default function AiAnalyst({ entry, type }) {
               Export AI PDF
             </button>
           </div>
-          <div className="response-content rendered" dangerouslySetInnerHTML={{ __html: responseHtml }}></div>
-          <div className="response-content raw" style={{ display: 'none' }}>
-            <pre>{response}</pre>
-          </div>
+          
+          {activeTab === 'rendered' ? (
+            <div className="response-content rendered" dangerouslySetInnerHTML={{ __html: responseHtml }}></div>
+          ) : (
+            <div className="response-content raw">
+              <pre>{response}</pre>
+            </div>
+          )}
+          
           <button 
             onClick={() => {
               setQuery('');
