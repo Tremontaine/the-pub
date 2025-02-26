@@ -69,7 +69,6 @@ The Pub is a modern, markdown-based repository for Dungeons & Dragons 5th Editio
 npm run build
 npm start
 ```
-
 ## Docker Deployment
 
 The Pub can be easily deployed using Docker.
@@ -80,6 +79,39 @@ The Pub can be easily deployed using Docker.
    ```bash
    git clone https://github.com/Tremontaine/the-pub.git
    cd the-pub
+   ```
+
+2. Create a `.env` file with your Mistral API key:
+   ```
+   MISTRAL_API_KEY=your_mistral_api_key
+   ```
+
+3. Build and start the container:
+   ```bash
+   docker-compose up -d
+   ```
+
+4. Access The Pub at http://localhost:3000
+
+### Using Docker Directly
+
+1. Build the Docker image:
+   ```bash
+   docker build -t the-pub .
+   ```
+
+2. Run the container:
+   ```bash
+   docker run -p 3000:3000 -e MISTRAL_API_KEY=your_api_key -v $(pwd)/content:/app/content -d the-pub
+   ```
+
+### Docker Environment Variables
+
+- `MISTRAL_API_KEY`: Your Mistral AI API key (required for AI analysis features)
+
+### Persistent Storage
+
+The Docker setup maps the `content` directory to persist your homebrew content even when the container is updated. Make sure your server has proper permissions set for this directory.
 
 ## Content Structure
 
