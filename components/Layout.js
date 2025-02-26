@@ -7,11 +7,11 @@ export default function Layout({ children, title = 'The Pub - D&D 5e Homebrew' }
   const [contentWidth, setContentWidth] = useState('centered');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   
-  // Map content width settings to actual CSS values
+  // Map content width settings to percentage-based values
   const widthMap = {
-    narrow: '600px',
-    centered: '900px',
-    wide: '90%'
+    narrow: { width: '25%', maxWidth: '25%', margin: '0 auto' },
+    centered: { width: '40%', maxWidth: '40%', margin: '0 auto' },
+    wide: { width: '90%', maxWidth: '90%', margin: '0 auto' }
   };
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export default function Layout({ children, title = 'The Pub - D&D 5e Homebrew' }
       <Sidebar isOpen={sidebarOpen} closeSidebar={() => setSidebarOpen(false)} />
       
       <main className="main-content">
-        <div className="main-content-inner" style={{ maxWidth: widthMap[contentWidth] }}>
+        <div className="main-content-inner" style={widthMap[contentWidth]}>
           <div className="content-controls">
             <ThemeToggle />
             <div className="width-control">
