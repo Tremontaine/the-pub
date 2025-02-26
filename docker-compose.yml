@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "8765:3000"
     environment:
       - NODE_ENV=production
       - MISTRAL_API_KEY=${MISTRAL_API_KEY}
