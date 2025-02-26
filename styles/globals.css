@@ -89,11 +89,24 @@ tr:hover {
 
 .table-row {
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s ease;
 }
 
 .table-row:hover {
-  background-color: var(--hover-color);
+  background-color: rgba(139, 0, 0, 0.05);
+}
+
+.table-cell-link {
+  display: block;
+  padding: 8px;
+  margin: -8px;  /* Offset the padding of table cells */
+  color: inherit;
+  text-decoration: none;
+}
+
+td {
+  position: relative; /* Required for the link to fill the cell */
+  padding: 8px;
 }
 
 .item-name {
