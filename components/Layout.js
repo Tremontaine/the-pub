@@ -5,6 +5,7 @@ import ThemeToggle from './ThemeToggle';
 
 export default function Layout({ children, title = 'The Pub - D&D 5e Homebrew' }) {
   const [contentWidth, setContentWidth] = useState('centered');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   
   // Map content width settings to actual CSS values
   const widthMap = {
@@ -27,22 +28,47 @@ export default function Layout({ children, title = 'The Pub - D&D 5e Homebrew' }
     if (savedWidth && widthMap[savedWidth]) {
       setContentWidth(savedWidth);
     }
-  }, []);
+    
+    // Close sidebar when clicking outside on mobile
+    const handleClickOutside = (event) => {
+      const isMobile = window.innerWidth < 768;
+      if (isMobile && sidebarOpen && !event.target.closest('.sidebar') && 
+          !event.target.closest('.sidebar-toggle')) {
+        setSidebarOpen(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [sidebarOpen, widthMap]);
 
   const handleWidthChange = (newWidth) => {
     setContentWidth(newWidth);
     localStorage.setItem('contentWidth', newWidth);
   };
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   return (
-    <div className="container">
+    <div className={`container ${sidebarOpen ? 'sidebar-open' : ''}`}>
       <Head>
         <title>{title}</title>
         <meta name="description" content="D&D 5e homebrew content - bestiary, spells, items" />
         <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       
-      <Sidebar />
+      <button 
+        className="sidebar-toggle" 
+        onClick={toggleSidebar}
+        aria-label={sidebarOpen ? "Close sidebar" : "Open sidebar"}
+      >
+        {sidebarOpen ? '✕' : '☰'}
+      </button>
+      
+      <Sidebar isOpen={sidebarOpen} closeSidebar={() => setSidebarOpen(false)} />
       
       <main className="main-content">
         <div className="main-content-inner" style={{ maxWidth: widthMap[contentWidth] }}>
