@@ -95,117 +95,160 @@ export default function AiAnalyst({ entry, type }) {
     }
   };
     
-const handleExportPDF = () => {
-  if (typeof window === 'undefined') return;
-  
-  import('html2pdf.js').then(module => {
-    const html2pdf = module.default;
+  const handleExportPDF = () => {
+    if (typeof window === 'undefined') return;
     
-    const element = document.createElement('div');
-    element.className = 'pdf-container';
-    element.innerHTML = `
-      <h1>AI Analysis for ${entry.name}</h1>
-      <div class="ai-content-pdf">
-        ${responseHtml}
-      </div>
-    `;
-    
-    // Add temporary styling
-    const tempStyle = document.createElement('style');
-    tempStyle.innerHTML = `
-      .pdf-container {
+    import('html2pdf.js').then(module => {
+      const html2pdf = module.default;
+      
+      const element = document.createElement('div');
+      element.className = 'pdf-container';
+      // Force light mode colors for PDF
+      element.style.cssText = `
+        color: #333 !important;
+        background-color: #fff !important;
         font-family: Arial, sans-serif;
         line-height: 1.6;
-        color: #333;
-        padding: 20px;
-      }
-      .pdf-container h1, .pdf-container h2, .pdf-container h3 {
-        margin-top: 20px;
-        margin-bottom: 10px;
-        color: #8b0000;
-        page-break-after: avoid;
-      }
-      .ai-content-pdf {
-        padding: 15px;
-        margin: 15px 0;
-      }
-      .pdf-container p {
-        margin: 0 0 10px 0;
-        page-break-inside: avoid;
-      }
-      .pdf-container ul, .pdf-container ol {
-        margin-bottom: 15px;
-        padding-left: 20px;
-      }
-      .pdf-container table {
-        width: 100%;
-        border-collapse: collapse;
-        page-break-inside: avoid;
-        margin: 15px 0;
-      }
-      .pdf-container th, .pdf-container td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-      }
-      .pdf-container tr {
-        page-break-inside: avoid;
-      }
-      .pdf-container table {
-       width: 100%;
-       max-width: 100%;
-      border-collapse: collapse;
-      margin: 15px 0;
-      page-break-inside: avoid;
-    }
-    .pdf-container th,
-    .pdf-container td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: left;
-      max-width: 100%;
-      word-break: break-word;
-    }
-    .pdf-container tr {
-    page-break-inside: avoid;
-    }      
-      * {
-        orphans: 3;
-        widows: 3;
-      }
-    `;
-    document.head.appendChild(tempStyle);
-    
-    const opt = {
-      margin: [25, 25, 25, 25], // top, right, bottom, left margins in mm
-      filename: `ai-analysis-${entry.name.toLowerCase().replace(/\s+/g, '-')}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { 
-        scale: 2,
-        letterRendering: true,
-        useCORS: true
-      },
-      jsPDF: { 
-        unit: 'mm', 
-        format: 'a4', 
-        orientation: 'portrait',
-        putOnlyUsedFonts: true,
-        compress: true
-      },
-      pagebreak: { 
-        mode: ['avoid-all', 'css', 'legacy'],
-        before: '.page-break-before',
-        after: '.page-break-after',
-        avoid: ['tr', 'td', 'th', 'img', 'table', 'h1', 'h2', 'h3']
-      }
-    };
-    
-    html2pdf().from(element).set(opt).save().then(() => {
-      // Clean up temporary style
-      document.head.removeChild(tempStyle);
+      `;
+      
+      element.innerHTML = `
+        <h1 style="color: #8b0000 !important; break-after: avoid-page;">AI Analysis for ${entry.name}</h1>
+        <div class="ai-content-pdf" style="color: #333 !important; background-color: #fff !important; padding: 15px; margin: 15px 0;">
+          ${responseHtml}
+        </div>
+      `;
+      
+      // Add temporary styling for light mode PDF
+      const tempStyle = document.createElement('style');
+      tempStyle.innerHTML = `
+        .pdf-container {
+          font-family: Arial, sans-serif;
+          line-height: 1.6;
+          color: #333 !important;
+          background-color: #fff !important;
+          padding: 20px;
+        }
+        .pdf-container h1, .pdf-container h2, .pdf-container h3 {
+          margin-top: 20px;
+          margin-bottom: 10px;
+          color: #8b0000 !important;
+          page-break-after: avoid;
+        }
+        .ai-content-pdf {
+          padding: 15px;
+          margin: 15px 0;
+          color: #333 !important;
+          background-color: #fff !important;
+        }
+        .pdf-container p, .ai-content-pdf p {
+          margin: 0 0 10px 0;
+          page-break-inside: avoid;
+          color: #333 !important;
+        }
+        .pdf-container ul, .pdf-container ol, .ai-content-pdf ul, .ai-content-pdf ol {
+          margin-bottom: 15px;
+          padding-left: 20px;
+          color: #333 !important;
+        }
+        .pdf-container table, .ai-content-pdf table {
+          width: 100%;
+          border-collapse: collapse;
+          page-break-inside: avoid;
+          margin: 15px 0;
+          border: 1px solid #ddd !important;
+        }
+        .pdf-container th, .ai-content-pdf th {
+          border: 1px solid #ddd !important;
+          padding: 8px;
+          text-align: left;
+          background-color: #f6f6f6 !important;
+          color: #333 !important;
+        }
+        .pdf-container td, .ai-content-pdf td {
+          border: 1px solid #ddd !important;
+          padding: 8px;
+          text-align: left;
+          color: #333 !important;
+        }
+        .pdf-container tr, .ai-content-pdf tr {
+          page-break-inside: avoid;
+        }
+        * {
+          orphans: 3;
+          widows: 3;
+          color: #333 !important;
+        }
+        strong, b {
+          color: #333 !important;
+          font-weight: bold;
+        }
+        code, pre {
+          font-family: monospace;
+          color: #333 !important;
+          background-color: #f5f5f5 !important;
+          padding: 0.2rem 0.4rem;
+          border-radius: 3px;
+        }
+        .ai-content-pdf h1,
+        .ai-content-pdf h2,
+        .ai-content-pdf h3,
+        .ai-content-pdf h4 {
+          color: #8b0000 !important;
+          margin-top: 1.2em;
+          margin-bottom: 0.5em;
+        }
+        .ai-content-pdf pre {
+          background-color: #f5f5f5 !important;
+          padding: 0.8em;
+          border-radius: 4px;
+          overflow-x: auto;
+          margin: 1em 0;
+          page-break-inside: avoid;
+        }
+        .ai-content-pdf blockquote {
+          border-left: 3px solid #8b0000 !important;
+          padding-left: 1em;
+          margin: 1em 0;
+          color: #333 !important;
+          background-color: #f9f9f9 !important;
+          padding: 0.5em 1em;
+          border-radius: 0 4px 4px 0;
+          page-break-inside: avoid;
+        }
+      `;
+      document.head.appendChild(tempStyle);
+      
+      const opt = {
+        margin: [25, 25, 25, 25], // top, right, bottom, left margins in mm
+        filename: `ai-analysis-${entry.name.toLowerCase().replace(/\s+/g, '-')}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+          scale: 2,
+          letterRendering: true,
+          useCORS: true,
+          backgroundColor: '#ffffff' // Force white background
+        },
+        jsPDF: { 
+          unit: 'mm', 
+          format: 'a4', 
+          orientation: 'portrait',
+          putOnlyUsedFonts: true,
+          compress: true
+        },
+        pagebreak: { 
+          mode: ['avoid-all', 'css', 'legacy'],
+          before: '.page-break-before',
+          after: '.page-break-after',
+          avoid: ['tr', 'td', 'th', 'img', 'table', 'h1', 'h2', 'h3']
+        }
+      };
+      
+      html2pdf().from(element).set(opt).save().then(() => {
+        // Clean up temporary style
+        document.head.removeChild(tempStyle);
+      });
     });
-  });
-};
+  };
   
   return (
     <div className="ai-analyst">
@@ -275,26 +318,4 @@ const handleExportPDF = () => {
               className="export-pdf-btn" 
               onClick={handleExportPDF}
             >
-              Export AI PDF
-            </button>
-          </div>
-          <div className="response-content rendered" dangerouslySetInnerHTML={{ __html: responseHtml }}></div>
-          <div className="response-content raw" style={{ display: 'none' }}>
-            <pre>{response}</pre>
-          </div>
-          <button 
-            onClick={() => {
-              setQuery('');
-              setResponse('');
-              setResponseHtml('');
-              setHasAsked(false);
-            }}
-            className="ai-reset-btn"
-          >
-            Ask Another Question
-          </button>
-        </div>
-      )}
-    </div>
-  );
-}
+              Export AI
