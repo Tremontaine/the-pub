@@ -151,6 +151,24 @@ const handleExportPDF = () => {
       .pdf-container tr {
         page-break-inside: avoid;
       }
+      .pdf-container table {
+       width: 100%;
+       max-width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      page-break-inside: avoid;
+    }
+    .pdf-container th,
+    .pdf-container td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+      max-width: 100%;
+      word-break: break-word;
+    }
+    .pdf-container tr {
+    page-break-inside: avoid;
+    }      
       * {
         orphans: 3;
         widows: 3;
