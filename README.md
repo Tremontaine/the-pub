@@ -1,6 +1,6 @@
 # The Pub - D&D 5e Homebrew Content Manager
 
-![The Pub Logo](https://i.ibb.co/cJvPq8x/the-pub-preview.png)
+![The Pub Logo](https://github.com/Tremontaine/the-pub/blob/main/public/logo.png)
 
 The Pub is a modern, markdown-based repository for Dungeons & Dragons 5th Edition homebrew content. Store, search, filter, and analyze your custom monsters, spells, magic items, and subclasses with an intuitive interface and AI-powered assistance.
 
@@ -69,6 +69,17 @@ The Pub is a modern, markdown-based repository for Dungeons & Dragons 5th Editio
 npm run build
 npm start
 ```
+
+## Docker Deployment
+
+The Pub can be easily deployed using Docker.
+
+### Using Docker Compose (Recommended)
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Tremontaine/the-pub.git
+   cd the-pub
 
 ## Content Structure
 
