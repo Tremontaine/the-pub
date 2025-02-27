@@ -245,7 +245,7 @@ input[type="text"], textarea {
 
 /* Sidebar Styles */
 .sidebar-toggle {
-  display: none;
+  display: none; /* Hide by default (desktop) */
   position: fixed;
   top: 15px;
   left: 15px;
@@ -259,7 +259,6 @@ input[type="text"], textarea {
   cursor: pointer;
   transition: background-color 0.2s;
   padding: 0;
-  display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -1072,7 +1071,7 @@ input[type="text"], textarea {
   }
 
   .sidebar-toggle {
-    display: flex;
+    display: flex; /* Show ONLY on mobile */
   }
   
   .sidebar {
@@ -1243,6 +1242,38 @@ input[type="text"], textarea {
   input, textarea, button {
     -webkit-appearance: none;
     border-radius: 4px;
+  }
+
+  /* More targeted table fixes */
+  .table-container table,
+  .bestiary table,
+  .subclasses table,
+  div[class*="page_"] table {
+    width: 100% !important;
+    min-width: 100% !important;
+    table-layout: fixed !important;
+    max-width: none !important;
+  }
+  
+  /* Force tables to take full width */
+  table {
+    box-sizing: border-box !important;
+    display: table !important;
+    width: 100% !important;
+  }
+  
+  /* Ensure horizontal scrolling works when needed */
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    display: block;
+  }
+  
+  /* Make sure all cells have proper sizing */
+  th, td {
+    min-width: 80px; /* Prevents cells from becoming too narrow */
+    box-sizing: border-box;
   }
 }
 
