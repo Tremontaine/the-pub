@@ -29,13 +29,6 @@ yarn-error.log*
 .DS_Store
 *.pem
 
-# Ignore all content files
-/content/**/*.md
-
-# But keep the directory structure
-!/content/
-!/content/*/
-
 # Docker volumes (if needed)
 docker-volumes/
 
