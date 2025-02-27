@@ -77,7 +77,7 @@ export default function Subclasses({ subclasses }) {
   className="clear-filters-btn"
   onClick={() => {
   setActiveFilters({});
-  setFilteredMonsters(searchResults);
+  setFilteredSubclasses(searchResults);
   setFilterResetKey(prev => prev + 1); // Add this line
 }}
 >

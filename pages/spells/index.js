@@ -87,7 +87,7 @@ export default function Spells({ spells }) {
   className="clear-filters-btn"
   onClick={() => {
   setActiveFilters({});
-  setFilteredMonsters(searchResults);
+  setFilteredSpells(searchResults);
   setFilterResetKey(prev => prev + 1); // Add this line
 }}
 >

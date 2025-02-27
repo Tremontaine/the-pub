@@ -93,7 +93,7 @@ export default function Items({ items }) {
   className="clear-filters-btn"
   onClick={() => {
   setActiveFilters({});
-  setFilteredMonsters(searchResults);
+  setFilteredItems(searchResults);
   setFilterResetKey(prev => prev + 1); // Add this line
 }}
 >
