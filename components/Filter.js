@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-export default function Filter({ data, field, label, onFilter }) {
+export default function Filter({ data, field, label, onFilter, resetKey = 0 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValues, setSelectedValues] = useState([]);
   const [searchText, setSearchText] = useState('');
@@ -86,6 +86,14 @@ export default function Filter({ data, field, label, onFilter }) {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen]);
+
+  // Add this effect to reset selectedValues when resetKey changes
+  useEffect(() => {
+    if (resetKey > 0) {  // Skip the initial render
+      setSelectedValues([]);
+      setSearchText('');
+    }
+  }, [resetKey]);
   
   // Update filtered data whenever selections change
   useEffect(() => {
