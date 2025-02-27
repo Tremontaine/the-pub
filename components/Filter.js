@@ -135,15 +135,15 @@ const toggleDropdown = (e) => {
             ))}
           </div>
           
-          <div className="dropdown-footer">
-            <button 
-              type="button"
-              className="dropdown-close"
-              onClick={handleApply}
-            >
-              Apply
-            </button>
-          </div>
+<div className="dropdown-footer">
+  <button 
+    type="button"
+    className="dropdown-close"
+    onClick={() => setIsOpen(false)}
+  >
+    Close
+  </button>
+</div>
         </div>
       )}
     </div>
