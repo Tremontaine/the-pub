@@ -284,7 +284,15 @@ export default function AiAnalyst({ entry, type }) {
             disabled={isLoading || !query.trim()}
             className="ai-submit-btn"
           >
-            {isLoading ? 'Thinking...' : 'Submit'}
+            {isLoading ? (
+              <div className="ai-loading">
+                <div className="loader"></div>
+              </div>
+            ) : (
+                <button type="submit" className="ai-submit-btn">
+                  Submit
+                </button>
+            )}
           </button>
         </form>
       ) : (
