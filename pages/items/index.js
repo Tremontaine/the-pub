@@ -9,6 +9,7 @@ export default function Items({ items }) {
   const [filteredItems, setFilteredItems] = useState(items);
   const [searchResults, setSearchResults] = useState(items);
   const [activeFilters, setActiveFilters] = useState({});
+  const [filterResetKey, setFilterResetKey] = useState(0);
   
   const columns = [
     { key: 'name', label: 'Name' },
@@ -70,28 +71,31 @@ export default function Items({ items }) {
             field="type" 
             label="Type" 
             onFilter={handleFilter} 
+            resetKey={filterResetKey}
           />
           <Filter 
             data={items} 
             field="rarity" 
             label="Rarity" 
-            onFilter={handleFilter} 
+            onFilter={handleFilter}
+            resetKey={filterResetKey}
           />
           <Filter 
             data={items} 
             field="requires_attunement" 
             label="Attunement" 
-            onFilter={handleFilter} 
+            onFilter={handleFilter}
+            resetKey={filterResetKey}
           />
         </div>
         {Object.keys(activeFilters).length > 0 && (
 <button 
   className="clear-filters-btn"
   onClick={() => {
-    const emptyFilters = {};
-    setActiveFilters(emptyFilters);
-    applyFilters(searchResults, emptyFilters); // Call applyFilters with the empty filters
-  }}
+  setActiveFilters({});
+  setFilteredMonsters(searchResults);
+  setFilterResetKey(prev => prev + 1); // Add this line
+}}
 >
   Clear Filters
 </button>
