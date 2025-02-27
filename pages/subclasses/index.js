@@ -13,8 +13,6 @@ export default function Subclasses({ subclasses }) {
   const columns = [
     { key: 'name', label: 'Name' },
     { key: 'class', label: 'Class' },
-    { key: 'source', label: 'Source' },
-    { key: 'level', label: 'Level' },
   ];
   
   const handleSearch = (results) => {
@@ -71,12 +69,6 @@ export default function Subclasses({ subclasses }) {
             label="Class" 
             onFilter={handleFilter} 
           />
-          <Filter 
-            data={subclasses} 
-            field="source" 
-            label="Source" 
-            onFilter={handleFilter} 
-          />
         </div>
         {Object.keys(activeFilters).length > 0 && (
           <button 
@@ -108,8 +100,6 @@ export async function getStaticProps() {
     'name',
     'slug',
     'class',
-    'source',
-    'level',
   ]);
   
   return {
