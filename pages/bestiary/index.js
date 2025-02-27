@@ -9,6 +9,7 @@ export default function Bestiary({ monsters }) {
   const [filteredMonsters, setFilteredMonsters] = useState(monsters);
   const [searchResults, setSearchResults] = useState(monsters);
   const [activeFilters, setActiveFilters] = useState({});
+  const [filterResetKey, setFilterResetKey] = useState(0);
   
   const columns = [
     { key: 'name', label: 'Name' },
@@ -69,29 +70,32 @@ export default function Bestiary({ monsters }) {
             data={monsters} 
             field="type" 
             label="Type" 
-            onFilter={handleFilter} 
+            onFilter={handleFilter}
+            resetKey={filterResetKey}
           />
           <Filter 
             data={monsters} 
             field="challenge_rating" 
             label="Challenge Rating" 
             onFilter={handleFilter} 
+            resetKey={filterResetKey}
           />
           <Filter 
             data={monsters} 
             field="size" 
             label="Size" 
             onFilter={handleFilter} 
+            resetKey={filterResetKey}
           />
         </div>
         {Object.keys(activeFilters).length > 0 && (
 <button 
   className="clear-filters-btn"
   onClick={() => {
-    const emptyFilters = {};
-    setActiveFilters(emptyFilters);
-    applyFilters(searchResults, emptyFilters); // Call applyFilters with the empty filters
-  }}
+  setActiveFilters({});
+  setFilteredMonsters(searchResults);
+  setFilterResetKey(prev => prev + 1); // Add this line
+}}
 >
   Clear Filters
 </button>
