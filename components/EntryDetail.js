@@ -57,8 +57,6 @@ export default function EntryDetail({ entry, content, type, rawMarkdown }) {
         
         ${type === 'subclasses' ? `
           <p style="color: #333 !important; margin-bottom: 8px;"><strong style="color: #333 !important;">Class:</strong> ${entry.class}</p>
-          <p style="color: #333 !important; margin-bottom: 8px;"><strong style="color: #333 !important;">Source:</strong> ${entry.source || 'Homebrew'}</p>
-          <p style="color: #333 !important; margin-bottom: 8px;"><strong style="color: #333 !important;">Level:</strong> ${entry.level || '3'}</p>
         ` : ''}
       </div>
       <div style="color: #333 !important;">${content}</div>
@@ -227,8 +225,6 @@ export default function EntryDetail({ entry, content, type, rawMarkdown }) {
         {type === 'subclasses' && (
           <>
             <p><strong>Class:</strong> {entry.class}</p>
-            <p><strong>Source:</strong> {entry.source || 'Homebrew'}</p>
-            <p><strong>Level:</strong> {entry.level || '3'}</p>
           </>
         )}
       </div>

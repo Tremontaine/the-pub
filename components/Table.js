@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import Link from 'next/link';
 
 export default function Table({ data, columns, basePath }) {
   const [sortConfig, setSortConfig] = useState({
@@ -24,11 +24,6 @@ export default function Table({ data, columns, basePath }) {
     setSortConfig({ key, direction });
   };
 
-  // Direct navigation handler
-  const handleRowClick = (slug) => {
-    window.location.href = `${basePath}/${slug}`;
-  };
-
   return (
     <div className="table-responsive">
       <table>
@@ -52,15 +47,16 @@ export default function Table({ data, columns, basePath }) {
         </thead>
         <tbody>
           {sortedData.map((item) => (
-            <tr 
-              key={item.slug} 
-              className="table-row"
-              onClick={() => handleRowClick(item.slug)}
-              style={{ cursor: 'pointer' }}
-            >
-              {columns.map((column) => (
+            <tr key={item.slug} className="table-row">
+              {columns.map((column, index) => (
                 <td key={`${item.slug}-${column.key}`}>
-                  {item[column.key]}
+                  {index === 0 ? (
+                    <Link href={`${basePath}/${item.slug}`} className="item-name">
+                      {item[column.key]}
+                    </Link>
+                  ) : (
+                    item[column.key]
+                  )}
                 </td>
               ))}
             </tr>
