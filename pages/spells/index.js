@@ -9,6 +9,7 @@ export default function Spells({ spells }) {
   const [filteredSpells, setFilteredSpells] = useState(spells);
   const [searchResults, setSearchResults] = useState(spells);
   const [activeFilters, setActiveFilters] = useState({});
+  const [filterResetKey, setFilterResetKey] = useState(0);
   
   const columns = [
     { key: 'name', label: 'Name' },
@@ -70,23 +71,25 @@ export default function Spells({ spells }) {
             data={spells} 
             field="level" 
             label="Level" 
-            onFilter={handleFilter} 
+            onFilter={handleFilter}
+            resetKey={filterResetKey}
           />
           <Filter 
             data={spells} 
             field="school" 
             label="School" 
-            onFilter={handleFilter} 
+            onFilter={handleFilter}
+            resetKey={filterResetKey}
           />
         </div>
         {Object.keys(activeFilters).length > 0 && (
 <button 
   className="clear-filters-btn"
   onClick={() => {
-    const emptyFilters = {};
-    setActiveFilters(emptyFilters);
-    applyFilters(searchResults, emptyFilters); // Call applyFilters with the empty filters
-  }}
+  setActiveFilters({});
+  setFilteredMonsters(searchResults);
+  setFilterResetKey(prev => prev + 1); // Add this line
+}}
 >
   Clear Filters
 </button>
