@@ -1,5 +1,6 @@
 ---
 name: Phaerimm Legacy
+source: The Pub
 class: Sorcerer
 ---
 

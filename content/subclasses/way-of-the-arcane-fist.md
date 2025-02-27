@@ -1,5 +1,6 @@
 ---
 name: Way of the Arcane Fist
+source: The Pub
 class: Monk
 ---
 
