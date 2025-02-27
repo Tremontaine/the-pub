@@ -71,16 +71,16 @@ export default function Subclasses({ subclasses }) {
           />
         </div>
         {Object.keys(activeFilters).length > 0 && (
-          <button 
-            type="button"
-            className="clear-filters-btn"
-            onClick={() => {
-              setActiveFilters({});
-              setFilteredSubclasses(searchResults);
-            }}
-          >
-            Clear Filters
-          </button>
+<button 
+  className="clear-filters-btn"
+  onClick={() => {
+    const emptyFilters = {};
+    setActiveFilters(emptyFilters);
+    applyFilters(searchResults, emptyFilters); // Call applyFilters with the empty filters
+  }}
+>
+  Clear Filters
+</button>
         )}
       </div>
       
