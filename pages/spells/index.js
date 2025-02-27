@@ -80,15 +80,16 @@ export default function Spells({ spells }) {
           />
         </div>
         {Object.keys(activeFilters).length > 0 && (
-          <button 
-            className="clear-filters-btn"
-            onClick={() => {
-              setActiveFilters({});
-              setFilteredSpells(searchResults);
-            }}
-          >
-            Clear Filters
-          </button>
+<button 
+  className="clear-filters-btn"
+  onClick={() => {
+    const emptyFilters = {};
+    setActiveFilters(emptyFilters);
+    applyFilters(searchResults, emptyFilters); // Call applyFilters with the empty filters
+  }}
+>
+  Clear Filters
+</button>
         )}
       </div>
       
