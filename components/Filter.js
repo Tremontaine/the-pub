@@ -19,6 +19,36 @@ export default function Filter({ data, field, label, onFilter }) {
     // Default string comparison
     return String(a).localeCompare(String(b));
   });
+
+  const pluralize = (word) => {
+  // Dictionary of irregular plurals common in D&D context
+  const irregularPlurals = {
+    'Class': 'Classes',
+    'Subclass': 'Subclasses',
+    'Rarity': 'Rarities',
+    'Attunement': 'Attunement', // Should not be pluralized
+    'Alignment': 'Alignments',
+    'Proficiency': 'Proficiencies',
+  };
+  
+  // Check if we have a special case for this word
+  if (irregularPlurals[word]) {
+    return irregularPlurals[word];
+  }
+  
+  // Don't add 's' if the word already ends with 's'
+  if (word.endsWith('s')) {
+    return word;
+  }
+  
+  // Words ending in 'y' preceded by a consonant
+  if (word.endsWith('y') && !['a','e','i','o','u'].includes(word.charAt(word.length-2).toLowerCase())) {
+    return word.slice(0, -1) + 'ies';
+  }
+  
+  // Regular pluralization
+  return `${word}s`;
+  };
   
   // Filter values based on search text
   const filteredValues = searchText 
@@ -120,7 +150,7 @@ const toggleDropdown = (e) => {
                   setSelectedValues([]);
                 }}
               />
-              <span><strong>All {label}s</strong></span>
+              <span><strong>All {pluralize(label)}</strong></span>
             </label>
             
             {filteredValues.map(value => (
