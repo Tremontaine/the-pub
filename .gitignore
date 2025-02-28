@@ -45,3 +45,4 @@ ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 .directory
+.env.local
