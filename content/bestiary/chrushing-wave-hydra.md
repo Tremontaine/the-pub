@@ -1,8 +1,8 @@
 ---
 name: Crashing Wave Hydra
 size: Huge
-type: monstrosity
-alignment: chaotic evil
+type: Monstrosity
+alignment: Chaotic evil
 challenge_rating: 12
 ---
 
