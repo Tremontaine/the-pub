@@ -193,8 +193,6 @@ When you hit with an attack using this magic sword, the target takes an extra 1d
 ---
 name: Oath of Frost
 class: Paladin
-source: The Pub
-level: 3
 ---
 
 # Oath of Frost
@@ -208,7 +206,7 @@ The Oath of Frost binds paladins to the ideals of endurance, isolation, and pres
 
 ### Environment Variables
 
-- `MISTRAL_API_KEY`: Your Mistral AI API key (required for AI analysis features)
+- `MISTRAL_API_KEY`: Your Mistral AI API key (required for AI analysis features, Mistral Large is used)
 
 ### Content Width
 
