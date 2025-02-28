@@ -1,3 +1,4 @@
+// components/Table.js - Fixed rarity sorting
 import { useState } from 'react';
 
 export default function Table({ data, columns, basePath }) {
@@ -6,7 +7,39 @@ export default function Table({ data, columns, basePath }) {
     direction: 'ascending'
   });
 
-// components/Table.js - Updated sorting logic
+  // Helper function to parse CR values
+  const parseCR = (cr) => {
+    if (!cr) return 0;
+    if (cr === '1/8') return 0.125;
+    if (cr === '1/4') return 0.25;
+    if (cr === '1/2') return 0.5;
+    return parseFloat(cr);
+  };
+
+  // Helper function to get rarity weight for sorting
+  const getRarityWeight = (rarity) => {
+    if (!rarity) return 0;
+
+    // Normalize the rarity string (lowercase, trim)
+    const normalizedRarity = rarity.toLowerCase().trim();
+
+    // Define rarity order with normalized keys
+    const rarityOrder = {
+      'common': 1,
+      'uncommon': 2,
+      'rare': 3,
+      'very rare': 4,
+      'legendary': 5,
+      'artifact': 6
+    };
+
+    // Log for debugging
+    console.log(`Rarity: "${rarity}", Normalized: "${normalizedRarity}", Weight: ${rarityOrder[normalizedRarity] || 0}`);
+
+    return rarityOrder[normalizedRarity] || 0;
+  };
+
+  // Updated sorting logic
   const sortedData = [...data].sort((a, b) => {
     // Special handling for spell levels
     if (sortConfig.key === 'level') {
@@ -22,20 +55,25 @@ export default function Table({ data, columns, basePath }) {
 
     // Special handling for challenge ratings
     if (sortConfig.key === 'challenge_rating') {
-      // Parse CR values like "1/4", "1/2", etc.
-      const parseCR = (cr) => {
-        if (cr === '1/8') return 0.125;
-        if (cr === '1/4') return 0.25;
-        if (cr === '1/2') return 0.5;
-        return parseFloat(cr);
-      };
-
       const crA = parseCR(a[sortConfig.key]);
       const crB = parseCR(b[sortConfig.key]);
 
       return sortConfig.direction === 'ascending' 
         ? crA - crB 
         : crB - crA;
+    }
+
+    // Special handling for item rarities
+    if (sortConfig.key === 'rarity') {
+      const rarityA = getRarityWeight(a[sortConfig.key]);
+      const rarityB = getRarityWeight(b[sortConfig.key]);
+
+      // Log comparison for debugging
+      console.log(`Comparing ${a[sortConfig.key]}(${rarityA}) with ${b[sortConfig.key]}(${rarityB})`);
+
+      return sortConfig.direction === 'ascending' 
+        ? rarityA - rarityB 
+        : rarityB - rarityA;
     }
 
     // Default string comparison for other fields
@@ -47,7 +85,6 @@ export default function Table({ data, columns, basePath }) {
     }
     return 0;
   });
-
 
   const requestSort = (key) => {
     let direction = 'ascending';
@@ -81,6 +118,7 @@ export default function Table({ data, columns, basePath }) {
                 )}
               </th>
             ))}
+            <th style={{ width: '40px' }}></th> {/* Column for background open button */}
           </tr>
         </thead>
         <tbody>
@@ -96,6 +134,26 @@ export default function Table({ data, columns, basePath }) {
                   {item[column.key]}
                 </td>
               ))}
+              <td 
+                style={{ textAlign: 'center', padding: '0.5rem' }}
+                onClick={(e) => e.stopPropagation()} // Prevent row click
+              >
+                <a 
+                  href={`${basePath}/${item.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Open in new tab"
+                  style={{
+                    display: 'inline-block',
+                    padding: '4px',
+                    borderRadius: '4px',
+                    background: 'var(--hover-color)',
+                    lineHeight: 1
+                  }}
+                >
+                  ↗️
+                </a>
+              </td>
             </tr>
           ))}
         </tbody>
