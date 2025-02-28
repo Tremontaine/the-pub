@@ -46,3 +46,4 @@ Desktop.ini
 $RECYCLE.BIN/
 .directory
 .env.local
+package-lock.json
