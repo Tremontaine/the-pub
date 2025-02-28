@@ -1,6 +1,6 @@
 ---
 name: Spectral Orb
-level: 0
+level: Cantrip
 school: Evocation
 casting_time: 1 action
 range: 60 feet

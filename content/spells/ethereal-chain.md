@@ -1,7 +1,7 @@
 ---
 name: Ethereal Chain
 level: 4
-school: conjuration
+school: Conjuration
 casting_time: 1 action
 range: 90 feet
 components: V, S, M (a tiny chain)

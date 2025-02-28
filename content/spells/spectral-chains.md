@@ -1,6 +1,6 @@
 ---
 name: Spectral Chains
-level: 2nd
+level: 2
 school: Evocation
 casting_time: 1 action
 range: 60 feet

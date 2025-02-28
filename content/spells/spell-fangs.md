@@ -1,6 +1,6 @@
 ---
 name: Spell Fangs
-level: 0
+level: Cantrip
 school: Evocation
 casting_time: 1 action
 range: Self
