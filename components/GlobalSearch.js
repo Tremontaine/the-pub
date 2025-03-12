@@ -52,19 +52,22 @@ export default function GlobalSearch() {
       
       {isLoading && <div>Loading...</div>}
       
-      {results.length > 0 && (
-        <div className="search-results">
-          {results.map(item => (
-            <div 
-              key={`${item.type}-${item.slug}`} 
-              className="search-result-item"
-              onClick={() => handleResultClick(item)}
-            >
-              <strong>{item.name}</strong> <small>({item.type})</small>
-            </div>
-          ))}
+      {results.map(item => (
+        <div key={`${item.type}-${item.slug}`} className="search-result-item">
+          <a 
+            href={`/${item.type}/${item.slug}`}
+            style={{ display: 'block', color: 'inherit', textDecoration: 'none' }}
+            onClick={(e) => {
+              if (e.button === 0 && !e.ctrlKey && !e.metaKey) {
+                e.preventDefault();
+                handleResultClick(item);
+              }
+            }}
+          >
+            <strong>{item.name}</strong> <small>({item.type})</small>
+          </a>
         </div>
-      )}
+      ))}
     </div>
   );
 }

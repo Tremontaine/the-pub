@@ -118,42 +118,33 @@ export default function Table({ data, columns, basePath }) {
                 )}
               </th>
             ))}
-            <th style={{ width: '40px' }}></th> {/* Column for background open button */}
           </tr>
         </thead>
         <tbody>
           {sortedData.map((item) => (
-            <tr 
-              key={item.slug} 
-              className="table-row"
-              onClick={() => handleRowClick(item.slug)}
-              style={{ cursor: 'pointer' }}
-            >
+            <tr key={item.slug} className="table-row">
               {columns.map((column) => (
                 <td key={`${item.slug}-${column.key}`}>
-                  {item[column.key]}
+                  <a 
+                    href={`${basePath}/${item.slug}`}
+                    className="table-cell-link"
+                    onClick={(e) => {
+                      // Handle only left clicks without modifier keys
+                      if (e.button === 0 && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                        e.preventDefault();
+                        window.location.href = `${basePath}/${item.slug}`;
+                      }
+                    }}
+                    style={{ 
+                      display: 'block',
+                      color: 'inherit', 
+                      textDecoration: 'none' 
+                    }}
+                  >
+                    {item[column.key]}
+                  </a>
                 </td>
               ))}
-              <td 
-                style={{ textAlign: 'center', padding: '0.5rem' }}
-                onClick={(e) => e.stopPropagation()} // Prevent row click
-              >
-                <a 
-                  href={`${basePath}/${item.slug}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Open in new tab"
-                  style={{
-                    display: 'inline-block',
-                    padding: '4px',
-                    borderRadius: '4px',
-                    background: 'var(--hover-color)',
-                    lineHeight: 1
-                  }}
-                >
-                  ↗️
-                </a>
-              </td>
             </tr>
           ))}
         </tbody>

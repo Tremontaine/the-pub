@@ -26,13 +26,12 @@ export default function Sidebar({ isOpen, closeSidebar }) {
             navigateTo('/');
           }}>
             <div className="logo-container">
-            <Image 
+            <img 
               src="/logo.png" 
               alt="The Pub Logo" 
               width={150}
               height={150}
               className="logo-image"
-              priority
             />
           </div>
           </a>
