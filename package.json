@@ -18,21 +18,4 @@
     "remark-html": "^15.0.2",
     "remark-gfm": "^3.0.1",
     "sharp": "^0.32.6"
-  },
-  "description": "![The Pub Logo](https://github.com/Tremontaine/the-pub/blob/main/public/logo.png)",
-  "main": "next.config.js",
-  "directories": {
-    "lib": "lib"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Tremontaine/the-pub.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Tremontaine/the-pub/issues"
-  },
-  "homepage": "https://github.com/Tremontaine/the-pub#readme"
-}
+  }
